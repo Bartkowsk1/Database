@@ -13,7 +13,7 @@
 
 /* --- DATA TYPE --- */
 
-//Enum type 
+//Enum type  - used in struct below instead of numbers
 typedef enum {
     INFORMATYKA,
     MATEMATYKA,
@@ -34,6 +34,6 @@ typedef struct {
 
 
 /* --- DEKLARACJE FUNKCJI (PROTOTYPY) --- */
-
+//tutaj będziemy wpisywać funkcje
 
 #endif // STUDENT_H

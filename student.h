@@ -14,6 +14,7 @@
 /* --- DATA TYPE --- */
 
 //Enum type  - used in struct below instead of numbers
+//Fields of study
 typedef enum {
     INFORMATYKA,
     MATEMATYKA,

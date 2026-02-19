@@ -39,6 +39,7 @@ void dodaj_studenta(Student **baza, int *ilosc);
 void zapisz_baze(const char *filename, Student *baza, int ilosc);
 void wczytaj_baze(const char *filename, Student **baza, int *ilosc);
 void zwolnij_pamiec(Student **baza, int *ilosc);
-
+void wypisz_studenta(const Student* s);
+void wypisz_cala_baze(const Student *baza, int rozmiar);
 
 #endif // STUDENT_H

@@ -51,15 +51,6 @@ int main() {
     }
         } while (wybor != 4);
 
-
-
-
-
-
-
-
-
-
     return 0;
     zwolnij_pamiec(&baza, &rozmiar);
 }

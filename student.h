@@ -35,6 +35,10 @@ typedef struct {
 
 
 /* --- DEKLARACJE FUNKCJI (PROTOTYPY) --- */
-//tutaj będziemy wpisywać funkcje
+void dodaj_studenta(Student **baza, int *ilosc); 
+void zapisz_baze(const char *filename, Student *baza, int ilosc);
+void wczytaj_baze(const char *filename, Student **baza, int *ilosc);
+void zwolnij_pamiec(Student **baza, int *ilosc);
+
 
 #endif // STUDENT_H

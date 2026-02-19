@@ -20,7 +20,7 @@ const char* pobierz_nazwe_kierunku(Kierunek k){
             return "Elektrotechnika";
             
         default:
-            return "Inny";
+            return "inny";
 
     }
 }

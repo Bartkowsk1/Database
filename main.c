@@ -11,11 +11,13 @@ int main() {
 
     wczytaj_baze("bazaStudentow.dat", &baza, &rozmiar); // Wczytujemy bazę studentów z pliku
 
+        
     do
     {
-   
-    ("Co chcesz zrobić?\n");
-    printf("1. Dodaj studenta 2. Usuń studenta 3. Zapisz zmiany 4. Wyjdź\n");
+    printf("\n==== SYSTEM BAZY STUDENTÓW ====\n");    
+    printf("Aktualna liczba studentów: %i\n", rozmiar);
+    printf("Co chcesz zrobić?\n");
+    printf("1. Dodaj studenta 2. Usuń studenta 3. Zapisz zmiany do pliku 4. Wyjdź\n");
     scanf("%i", &wybor);
 
     switch (wybor)
@@ -24,9 +26,19 @@ int main() {
         dodaj_studenta(&baza, &rozmiar);
         break;
     case 2:
-        wypisz_studenta(baza[rozmiar - 1]); //funckja wzięta z student_utilits.c do wypisania ostatniego studenta przed usunięciem
-        rozmiar--; //zmniejszamy rozmiar, ale nie zwalniamy pamięci, bo możemy dodać kolejnego studenta
-        break;    
+            if (rozmiar > 0) {
+                printf("\nUsuwanie ostatniego studenta...\n");
+                
+                // Przekazujemy ADRES (&) studenta do funkcji kolegi
+                wypisz_studenta(&baza[rozmiar - 1]); 
+                
+                // Zmniejszamy licznik (Logiczne usunięcie)
+                rozmiar--; 
+                printf("Student zostal usuniety.\n");
+            } else {
+                printf("\nBaza jest pusta! Nie ma kogo usunac.\n");
+            }
+            break;
     case 3:
         zapisz_baze("baza.dat", baza, rozmiar);
         break;
@@ -34,6 +46,7 @@ int main() {
         zwolnij_pamiec(&baza, &rozmiar);
         break;    
     default:
+        printf("Nieprawidłowy wybór, spróbuj ponownie.\n");
         break;
     }
         } while (wybor != 4);
@@ -52,7 +65,26 @@ int main() {
 }
 
 void dodaj_studenta(Student **baza, int *ilosc) {
+    int nowy_rozmiar = *ilosc + 1; // Nowy rozmiar po dodaniu studenta
+    Student *nowa_baza = realloc(*baza, nowy_rozmiar * sizeof(Student)); // Reallocujemy pamięć dla nowej bazy
 
+    *baza = nowa_baza; // Aktualizujemy wskaźnik do bazy
+    (*ilosc)++; // Zwiększamy ilość studentów 
+    printf("Podaj imię studenta: ");
+    scanf("%s", (*baza)[*ilosc - 1].imie);
+    printf("Podaj nazwisko studenta: ");
+    scanf("%s", (*baza)[*ilosc - 1].nazwisko
+    );
+    printf("Podaj numer indeksu studenta: ");
+    scanf("%i", &(*baza)[*ilosc - 1].nr_indeksu);
+    int wybor_kierunku;
+    printf("Wybierz kierunek studenta (0 - Informatyka, 1 - Matematyka, 2 - Fizyka, 3 - Elektronika, 4 - Elektrotechnika): ");
+    scanf("%i", &wybor_kierunku);
+    (*baza)[*ilosc - 1].kierunek = (Kierunek)wybor_kierunku; // Rzutujemy na typ Kierunek
+    printf("Podaj średnią ocen studenta: ");
+    scanf("%f", &(*baza)[*ilosc - 1].srednia);
+
+    printf("Student został dodany pomyślnie!\n");
 
 }
 void zapisz_baze(const char *filename, Student *baza, int ilosc) {}

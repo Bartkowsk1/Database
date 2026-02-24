@@ -1,0 +1,8 @@
+1. Do zbudowania aplikacji należy użyc terminala wbudowanego w IDE np. VSC i użyc komendy:
+  mingw32-make 
+co pozwoli na komilacje i stowrzenie pliku .exe
+2. Do odpalenia pliku wytarczy uzyć komendy
+  ./student_app.exe
+
+
+Adnotacja: Podczas kompilacji mogą się pojawić restrykcyjne ostrzeżenia spowodowane stosowaniem flagi w pliku Make

@@ -124,3 +124,48 @@ void zwolnij_pamiec(Student **baza, int *ilosc){
     *baza = NULL; // Dobrą praktyką jest ustawienie wskaźnika na NULL po zwolnieniu
     *ilosc = 0; // Resetujemy ilość studentów
 }
+
+
+void sortuj_bazeIndex(Student *baza, int rozmiar){
+    for (int i = 0; i < rozmiar - 1; i++) {
+        for (int j = 0; j < rozmiar - i - 1; j++) {
+            if (baza[j].nr_indeksu > baza[j + 1].nr_indeksu) {
+                Student temp = baza[j];
+                baza[j] = baza[j + 1];
+                baza[j + 1] = temp;
+            }
+        }
+    }
+
+};
+
+void sortuj_bazeNazwisko(Student *baza, int rozmiar){
+    for (int i = 0; i < rozmiar - 1; i++) {
+        for (int j = 0; j < rozmiar - i - 1; j++) {
+            if (strcmp(baza[j].nazwisko, baza[j + 1].nazwisko) > 0) {
+                Student temp = baza[j];
+                baza[j] = baza[j + 1];
+                baza[j + 1] = temp;
+            }
+        }
+    }
+
+};
+
+Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu) {
+    for (int i = 0; i < rozmiar; i++) {
+        if (baza[i].nr_indeksu == nr_indeksu) {
+            return &baza[i];
+        }
+    }
+    return NULL;
+};
+
+Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko) {
+    for (int i = 0; i < rozmiar; i++) {
+        if (strcmp(baza[i].nazwisko, nazwisko) == 0) {
+            return &baza[i];
+        }
+    }
+    return NULL;
+};

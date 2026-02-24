@@ -42,4 +42,11 @@ void zwolnij_pamiec(Student **baza, int *ilosc);
 void wypisz_studenta(const Student* s);
 void wypisz_cala_baze(const Student *baza, int rozmiar);
 
+//NOWE
+void sortuj_bazeIndex(Student *baza, int rozmiar);
+void sortuj_bazeNazwisko(Student *baza, int rozmiar);
+
+Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu);
+Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko);
+
 #endif // STUDENT_H

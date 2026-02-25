@@ -101,7 +101,27 @@ void wypisz_cala_baze(const Student *baza, int rozmiar) {
         wypisz_studenta(&baza[i]);
     }
 }
+void wypisz_kierunek(const Student *baza, int rozmiar, Kierunek zKierunku) {
+    // Zabezpieczenie przed pierwszym testem bez danych w bazie 
+    if (baza == NULL || rozmiar == 0) {
+        printf("Baza jest obecnie pusta. Dodaj studentów, aby ich zobaczyć!\n");
+        return;
+    }
+    bool znaleziono = false;
+    
+    printf("Studenci z kierunku: %s  \n", pobierz_nazwe_kierunku(zKierunku));
 
+    // petla z if statment
+    for (int i = 0; i < rozmiar; i++) {
+        if(baza[i].kierunek == zKierunku){
+            wypisz_studenta(&baza[i]);
+            znaleziono = true;
+        }
+    }
+    if(!znaleziono){
+        printf("Brak studentów na danym kierunku");
+    }
+}
 
 void zapisz_baze(const char *filename, Student *baza, int ilosc) {
     FILE *plik = fopen(filename, "wb"); // "wb" = write binary

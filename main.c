@@ -25,7 +25,10 @@ int main() {
         printf("4. Zapisz zmiany do pliku\n");
         printf("5. Posortuj studentów.\n");
         printf("6. Znajdź studenta.\n");
-        printf("7. Wyjdź\n");
+        printf("7. Wypisz studentów z danego kierunku\n");
+        printf("---------------------------------------------\n");
+        printf("0. Wyjdź\n");
+        printf("----------------------------------------------\n");
         printf("Twój wybór: ");
         
         scanf("%i", &wybor);
@@ -39,11 +42,37 @@ int main() {
                 break;
 
 
-            case 2:
-                printf("\n--- LISTA STUDENTÓW ---\n");
-                wypisz_cala_baze(baza, rozmiar);
-                break;
+            case 2: {
+                int wWypisanie;
+                printf("Wybierz sposób wypisania studentów: ");
+                printf("1. Cała baza studentów ");
+                printf("2. Studenci z poszczegolnego kierunku");
+                do{
+                    printf("Wybór(1 lub 2): ");
+                    scanf(" %i", &wWypisanie);
 
+                    //if statment:
+                    if(wWypisanie == 1){
+                        printf("\n--- LISTA STUDENTÓW ---\n");
+                        wypisz_cala_baze(baza, rozmiar);
+                    }
+                    else if(wWypisanie == 2){
+                        int wybor_kierunku;
+                        printf("Podaj kierunek (0-Informatyka, 1-Matematyka, 2-Fizyka, 3-Elektronika, 4-Elektrotechnika): ");
+                        scanf("%i", &wybor_kierunku);
+                        while(getchar() != '\n'); //pętla chodzi dopóki nie znajdzie i nie usunie znaku \n (Enter)
+
+                        wypisz_kierunek(baza, rozmiar, (Kierunek)wybor_kierunku); //pstatni argument za pomocą rzutowania na enum
+                    }
+                    else{
+                        printf("Błąd wyboru - spróbuj jeszcze raz!!!\n");
+                    }
+                }while(wWypisanie != 1 && wWypisanie != 2);
+
+
+                
+                break;
+            }
 
             case 3:
                 if (rozmiar > 0) {
@@ -107,10 +136,8 @@ int main() {
                     printf("Nieprawidłowy wybór wyszukiwania.\n");
                 }
                 break;
-
-
             
-            case 7:
+            case 0:
                 printf("\nBaza została zamknięta.\n");
                 zapisz_baze("baza.dat", baza, rozmiar);
                 break;
@@ -121,7 +148,7 @@ int main() {
                 printf("Nieprawidłowy wybór, spróbuj ponownie.\n");
                 break;
         }
-    } while (wybor != 7);
+    } while (wybor != 0);
 
     // Zwalnianie pamieci na koncu pliku
     zwolnij_pamiec(&baza, &rozmiar);

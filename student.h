@@ -7,9 +7,6 @@
 // Max length of string
 #define MAX_STR 50 
 
-//Max number of student (array)
-#define MAX_STUDENTS 100 
-
 
 /* --- DATA TYPE --- */
 
@@ -45,6 +42,7 @@ void wypisz_cala_baze(const Student *baza, int rozmiar);
 //NOWE
 void sortuj_bazeIndex(Student *baza, int rozmiar);
 void sortuj_bazeNazwisko(Student *baza, int rozmiar);
+
 
 Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu);
 Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko);

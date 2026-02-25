@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "student.h"
 
 const char* pobierz_nazwe_kierunku(Kierunek k){
@@ -39,17 +41,43 @@ void wypisz_studenta(const Student* s)
 
 void dodaj_studenta(Student **baza, int *ilosc) {
     int nowy_rozmiar = *ilosc + 1; // Nowy rozmiar po dodaniu studenta
-    Student *nowa_baza = realloc(*baza, nowy_rozmiar * sizeof(Student)); // Reallocujemy pamięć dla nowej bazy
+    int podany_indeks;          //  Zmienne potrzebne do zbudowania funkcjonalności
+    bool wynik_wyszukiwania;    //--^
 
-    *baza = nowa_baza;
+    Student *nowa_baza = realloc(*baza, nowy_rozmiar * sizeof(Student)); // Reallocujemy pamięć dla nowej bazy
+    //Poprawka realloca dodanie if  
+    if(nowa_baza == NULL){
+        printf("Błąd pamięci - brak wystarczajacego miejsca do zapisu tymczasowego ");
+        printf("Spróbuj zapisac postęp i wrócić ponownie do programu ");
+    }else{
+        *baza = nowa_baza;
+    }
     (*ilosc)++; 
     printf("Podaj imię studenta: ");
-    scanf("%s", (*baza)[*ilosc - 1].imie);
+    scanf("%49s", (*baza)[*ilosc - 1].imie); //%49s - ograniczenie aby nie przepełnić bufora 
     printf("Podaj nazwisko studenta: ");
-    scanf("%s", (*baza)[*ilosc - 1].nazwisko
+    scanf("%49s", (*baza)[*ilosc - 1].nazwisko
     );
-    printf("Podaj numer indeksu studenta: ");
-    scanf("%i", &(*baza)[*ilosc - 1].nr_indeksu);
+
+    //dodanie funkcjonalności uniemożliwiającej dodanie indeksu który jest już w bazie
+    //za pomoca funkcji szukaj_studentaIndex
+    do{
+        printf("Podaj numer indeksu studenta: ");
+        scanf("%i", &podany_indeks);
+        
+        wynik_wyszukiwania = szukaj_studentaIndex(*baza, *ilosc-1, podany_indeks);
+
+        if(wynik_wyszukiwania){
+            printf("Podany indeks jest juz przypisany dla innego studenta w bazie danych!!!\n");
+        }
+
+    }while(wynik_wyszukiwania);
+    (*baza)[*ilosc - 1].nr_indeksu = podany_indeks;
+    /*
+        printf("Podaj numer indeksu studenta: ");
+        scanf("%i", &(*baza)[*ilosc - 1].nr_indeksu);
+    */
+
     int wybor_kierunku;
     printf("Wybierz kierunek studenta (0 - Informatyka, 1 - Matematyka, 2 - Fizyka, 3 - Elektronika, 4 - Elektrotechnika): ");
     scanf("%i", &wybor_kierunku);
@@ -137,7 +165,7 @@ void sortuj_bazeIndex(Student *baza, int rozmiar){
         }
     }
 
-};
+}
 
 void sortuj_bazeNazwisko(Student *baza, int rozmiar){
     for (int i = 0; i < rozmiar - 1; i++) {
@@ -150,7 +178,7 @@ void sortuj_bazeNazwisko(Student *baza, int rozmiar){
         }
     }
 
-};
+}
 
 Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu) {
     for (int i = 0; i < rozmiar; i++) {
@@ -159,7 +187,7 @@ Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu) {
         }
     }
     return NULL;
-};
+}
 
 Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko) {
     for (int i = 0; i < rozmiar; i++) {
@@ -168,4 +196,4 @@ Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko) {
         }
     }
     return NULL;
-};
+}

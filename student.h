@@ -46,6 +46,9 @@ void wypisz_cala_baze(const Student *baza, int rozmiar);
 void sortuj_bazeIndex(Student *baza, int rozmiar);
 void sortuj_bazeNazwisko(Student *baza, int rozmiar);
 
+void usun_ostatniegoStudenta(Student **baza, int *ilosc);
+void usun_wybranegoStudenta(Student **baza, int *ilosc);
+
 Student* szukaj_studentaIndex(Student *baza, int rozmiar, int nr_indeksu);
 Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko);
 

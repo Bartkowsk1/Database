@@ -21,7 +21,7 @@ int main() {
         printf("Co chcesz zrobić?\n");
         printf("1. Dodaj studenta\n");
         printf("2. Wypisz wszystkich studentów\n"); 
-        printf("3. Usuń ostatniego studenta\n");
+        printf("3. Usuń studenta\n");
         printf("4. Zapisz zmiany do pliku\n");
         printf("5. Posortuj studentów.\n");
         printf("6. Znajdź studenta.\n");
@@ -47,13 +47,20 @@ int main() {
 
             case 3:
                 if (rozmiar > 0) {
-                    printf("\nUsuwanie ostatniego studenta...\n");
-                    wypisz_studenta(&baza[rozmiar - 1]); 
-                    rozmiar--; 
-                    printf("Student został usunięty.\n");
+                    printf("Czy chcesz usunąć ostatniego studenta (1) czy wybranego (2)? ");
+                    int wyborUsuwania;
+                    scanf("%i", &wyborUsuwania);
+                    if (wyborUsuwania == 1) {
+                        usun_ostatniegoStudenta(&baza, &rozmiar);
+                    } else if (wyborUsuwania == 2) {
+                        usun_wybranegoStudenta(&baza, &rozmiar);
+                    } else {
+                        printf("Nieprawidłowy wybór usuwania.\n");
+                    }
                 } else {
                     printf("\nBaza jest pusta! Nie ma kogo usunąć.\n");
-                }
+                } 
+                
                 break;
 
 

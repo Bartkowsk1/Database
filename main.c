@@ -25,7 +25,9 @@ int main() {
         printf("4. Zapisz zmiany do pliku\n");
         printf("5. Posortuj studentów.\n");
         printf("6. Znajdź studenta.\n");
-        printf("7. Wyjdź\n");
+        printf("7. Przydziel studenta do grupy.\n");
+        printf("8. Usuń studenta z grupy.\n");
+        printf("9. Wyjdź\n");
         printf("Twój wybór: ");
         
         scanf("%i", &wybor);
@@ -116,8 +118,17 @@ int main() {
                 break;
 
 
-            
             case 7:
+                printf("Funkcja przydzielania do grupy jest jeszcze w trakcie implementacji.\n");
+                break;
+
+
+            case 8:
+                printf("Funkcja usuwania z grupy jest jeszcze w trakcie implementacji.\n");
+                break;
+
+
+            case 9:
                 printf("\nBaza została zamknięta.\n");
                 zapisz_baze("baza.dat", baza, rozmiar);
                 break;

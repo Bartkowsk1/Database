@@ -22,8 +22,9 @@ const char* pobierz_nazwe_kierunku(Kierunek k){
             return "Elektrotechnika";
             
         default:
-            return "inny";
 
+            return "Inny";
+            
     }
 }
 
@@ -88,6 +89,7 @@ void dodaj_studenta(Student **baza, int *ilosc) {
     printf("Student został dodany pomyślnie!\n");
 
 }
+
 void wypisz_cala_baze(const Student *baza, int rozmiar) {
     // Zabezpieczenie przed pierwszym testem bez danych w bazie 
     if (baza == NULL || rozmiar == 0) {
@@ -120,6 +122,44 @@ void wypisz_kierunek(const Student *baza, int rozmiar, Kierunek zKierunku) {
     }
     if(!znaleziono){
         printf("Brak studentów na danym kierunku");
+    }
+}
+void usun_ostatniegoStudenta(Student **baza, int *ilosc) {
+    if (*ilosc > 0) {
+        (*ilosc)--; // Zmniejszamy ilość studentów
+        printf("Student %s %s został usunięty.\n", (*baza)[*ilosc].imie, (*baza)[*ilosc].nazwisko);
+    } else {
+        printf("Baza jest pusta! Nie ma kogo usunąć.\n");
+    }
+}
+
+void usun_wybranegoStudenta(Student **baza, int *ilosc) {
+    if (*ilosc == 0) {
+        printf("Baza jest pusta! Nie ma kogo usunąć.\n");
+        return;
+    }
+
+    int nr_indeksu;
+    printf("Podaj numer indeksu studenta do usunięcia: ");
+    scanf("%i", &nr_indeksu);
+
+    int index_do_usuniecia = -1;
+    for (int i = 0; i < *ilosc; i++) {
+        if ((*baza)[i].nr_indeksu == nr_indeksu) {
+            index_do_usuniecia = i;
+            break;
+        }
+    }
+
+    if (index_do_usuniecia != -1) {
+        printf("Student %s %s został usunięty.\n", (*baza)[index_do_usuniecia].imie, (*baza)[index_do_usuniecia].nazwisko);
+        for (int j = index_do_usuniecia; j < *ilosc - 1; j++) {
+            (*baza)[j] = (*baza)[j + 1];
+        }
+        (*ilosc)--;
+        *baza = realloc(*baza, (*ilosc) * sizeof(Student));
+    } else {
+        printf("Nie znaleziono studenta z numerem indeksu %d.\n", nr_indeksu);
     }
 }
 
@@ -171,8 +211,8 @@ void zwolnij_pamiec(Student **baza, int *ilosc){
     free(*baza);
     *baza = NULL; // Dobrą praktyką jest ustawienie wskaźnika na NULL po zwolnieniu
     *ilosc = 0; // Resetujemy ilość studentów
-}
 
+}
 
 void sortuj_bazeIndex(Student *baza, int rozmiar){
     for (int i = 0; i < rozmiar - 1; i++) {

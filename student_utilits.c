@@ -28,7 +28,6 @@ const char* pobierz_nazwe_kierunku(Kierunek k){
     }
 }
 
-//using const for read-only purpose sec.0
 void wypisz_studenta(const Student* s)
 {
     // (*s).imie = s->imie
@@ -103,6 +102,7 @@ void wypisz_cala_baze(const Student *baza, int rozmiar) {
         wypisz_studenta(&baza[i]);
     }
 }
+
 void wypisz_kierunek(const Student *baza, int rozmiar, Kierunek zKierunku) {
     // Zabezpieczenie przed pierwszym testem bez danych w bazie 
     if (baza == NULL || rozmiar == 0) {
@@ -124,6 +124,7 @@ void wypisz_kierunek(const Student *baza, int rozmiar, Kierunek zKierunku) {
         printf("Brak studentów na danym kierunku");
     }
 }
+
 void usun_ostatniegoStudenta(Student **baza, int *ilosc) {
     if (*ilosc > 0) {
         (*ilosc)--; // Zmniejszamy ilość studentów
@@ -205,7 +206,6 @@ void wczytaj_baze(const char *filename, Student **baza, int *ilosc) {
 
     fclose(plik);
 }
-
 
 void zwolnij_pamiec(Student **baza, int *ilosc){
     free(*baza);

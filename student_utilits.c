@@ -47,8 +47,7 @@ void dodaj_studenta(Student **baza, int *ilosc) {
     Student *nowa_baza = realloc(*baza, nowy_rozmiar * sizeof(Student)); // Reallocujemy pamięć dla nowej bazy
     //Poprawka realloca dodanie if  
     if(nowa_baza == NULL){
-        printf("Błąd pamięci - brak wystarczajacego miejsca do zapisu tymczasowego ");
-        printf("Spróbuj zapisac postęp i wrócić ponownie do programu ");
+        printf("Błąd pamięci - brak wystarczajacego miejsca.");
     }else{
         *baza = nowa_baza;
     }

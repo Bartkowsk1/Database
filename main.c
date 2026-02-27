@@ -27,6 +27,7 @@ int main() {
         printf("6. Znajdź studenta.\n");
         printf("7. Przydziel studenta do grupy.\n");
         printf("8. Usuń studenta z grupy.\n");
+        printf("9. Edytuj studenta.\n");
         printf("---------------------------------------------\n");
         printf("0. Wyjdź\n");
         printf("----------------------------------------------\n");
@@ -154,6 +155,11 @@ int main() {
             case 8:
                 printf("Funkcja usuwania z grupy jest jeszcze w trakcie implementacji.\n");
                 break;
+
+            case 9:
+                printf("Edytor danych studentów \n");
+                edytuj_studenta(baza, rozmiar);
+                break;   
 
 
             case 0:

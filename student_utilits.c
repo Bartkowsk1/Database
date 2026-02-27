@@ -256,3 +256,85 @@ Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko) {
     }
     return NULL;
 }
+//
+/*
+to do:
+    1. Poprawka wyszukiwania przez nazwisko
+    2. Obsluga w przypadku nie znalezienia studenta o podanym indeksie/nazwisku -> ponowne wprowadzenie
+    3. Zmiana kierunku -> zmiana za pomocą enum.
+
+    Opcjonalnie:
+    1. Dodanie wyjścia z edytora po wyborze studenta z zachowaniem poprzednich danych (mimo edycji)
+    2. 
+*/
+void edytuj_studenta(Student *baza, int rozmiar){
+
+    int wybor_Wyszkiwania;
+    Student *wyszukany_Student = NULL;
+
+
+    if (baza == NULL || rozmiar == 0) {
+        printf("\nBrak danych!!! Wprowadz pierwsze dane!\n");
+        return; 
+    }
+    printf("Podan jak chcesz znaleźć studenta do edycji: \n");
+    printf("1. Po numerze indeksu\n");
+    printf("2. Po nazwisku \n");
+    do{
+        printf("Wybór: ");
+        scanf(" %i", &wybor_Wyszkiwania);
+
+        if(wybor_Wyszkiwania == 1){
+            int index;
+            printf("Podaj nr indeksu: ");
+            scanf(" %i", &index);
+            getchar();
+            wyszukany_Student = szukaj_studentaIndex(baza, rozmiar, index);
+        }
+        else if(wybor_Wyszkiwania == 2){
+            //Na razie pozostawiam bo obczailem ze bedzie problem. Zalozmy ze mamy trzech kowalskich,
+            //nie wystarczy nam nazwisko. Musimy dalej poprosić o nr indeksu tak aby dokładnie doprecysowac o kogo chodzi
+        }
+        else{
+            printf("Błąd! Wprowadź poprawny wybór jeszcze raz ");
+        }
+    }while(wybor_Wyszkiwania != 1 && wybor_Wyszkiwania != 2);
+    //Wypisanie studenta
+    printf("Student którego dane będą edytowane: \n");
+    printf("-------------------------------");
+    wypisz_studenta(wyszukany_Student);
+    printf("-------------------------------\n");
+
+    
+    //Pola edycji -> po znalezionu konkretnego stidenta bedziemy pytac o to co chcemy edytowac
+    wybor_Wyszkiwania = 0;
+    printf("Wybierz co chcesz edytować\n");
+    printf("1. Średnia ocen \n");
+    printf("2. Kierunek \n");
+    do{
+        printf("Wybór: ");
+        scanf(" %i", &wybor_Wyszkiwania);
+        getchar();
+
+        if(wybor_Wyszkiwania == 1){
+            //Zmiana średniej
+            printf("Podaj nowa średnią :" );
+            //dwa miejsca po przecinku!!!
+            scanf(" %f", &wyszukany_Student->srednia); // <=> wyszukany_Student.srednia
+        }
+        else if(wybor_Wyszkiwania == 2){
+            printf("Podaj nowy kierunek studenta: ");
+        
+        }
+        else{
+            printf("Błąd! Wprowadź poprawny wybór jeszcze raz ");
+        }
+    }while(wybor_Wyszkiwania != 1 && wybor_Wyszkiwania != 2);
+
+    printf("\n\nStudent po edycji dancyh: \n");
+    printf("-------------------------------");
+    wypisz_studenta(wyszukany_Student);
+    printf("-------------------------------\n");
+
+
+}

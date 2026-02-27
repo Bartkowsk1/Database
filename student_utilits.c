@@ -261,16 +261,16 @@ Student* szukaj_studentaNazwisko(Student *baza, int rozmiar, char* nazwisko) {
 to do:
     1. Poprawka wyszukiwania przez nazwisko
     2. Obsluga w przypadku nie znalezienia studenta o podanym indeksie/nazwisku -> ponowne wprowadzenie
-    3. Zmiana kierunku -> zmiana za pomocą enum.
 
     Opcjonalnie:
     1. Dodanie wyjścia z edytora po wyborze studenta z zachowaniem poprzednich danych (mimo edycji)
-    2. 
+    2.  Dodanie wyjścia w momencie przeszukiwania studenta do edycji przez nazwisko
 */
 void edytuj_studenta(Student *baza, int rozmiar){
 
     int wybor_Wyszkiwania;
     Student *wyszukany_Student = NULL;
+    int index;
 
 
     if (baza == NULL || rozmiar == 0) {
@@ -280,20 +280,67 @@ void edytuj_studenta(Student *baza, int rozmiar){
     printf("Podan jak chcesz znaleźć studenta do edycji: \n");
     printf("1. Po numerze indeksu\n");
     printf("2. Po nazwisku \n");
+    printf("0. Wyjdź\n");
     do{
         printf("Wybór: ");
         scanf(" %i", &wybor_Wyszkiwania);
 
         if(wybor_Wyszkiwania == 1){
-            int index;
             printf("Podaj nr indeksu: ");
             scanf(" %i", &index);
             getchar();
             wyszukany_Student = szukaj_studentaIndex(baza, rozmiar, index);
         }
         else if(wybor_Wyszkiwania == 2){
-            //Na razie pozostawiam bo obczailem ze bedzie problem. Zalozmy ze mamy trzech kowalskich,
-            //nie wystarczy nam nazwisko. Musimy dalej poprosić o nr indeksu tak aby dokładnie doprecysowac o kogo chodzi
+            char nazwisko[MAX_STR];
+            printf("Podaj nazwisko: ");
+            scanf(" %s", nazwisko);
+            getchar();
+
+            int ile_stud = 0;
+            Student *pkt_startu = baza;
+            int rozmiar_do_konca = rozmiar;
+
+            printf("Znalezieni studenci o takim nazwisku: \n");
+
+            //Petla while szukajaca wszystkich studentow z uzyciem funckji szukaj_studentaNazwisko
+            while(rozmiar_do_konca > 0){
+                Student *tymczasowy =  szukaj_studentaNazwisko(pkt_startu, rozmiar_do_konca, nazwisko);
+
+                //
+                if(tymczasowy == NULL){
+                    break;
+                }
+
+                wypisz_studenta(tymczasowy);
+                ile_stud++;
+
+                /*
+                Szukamy adres studenta i wykonujemy przejscie tak, aby szukać w następnej
+                iteracji bez uwzglednienia znalezionego w (aktualnej iteracji) studenta
+                */
+                int pkt_przejscia = (tymczasowy - pkt_startu) + 1; //adres tymczasoewgo - pkt startu bazy
+
+                pkt_startu = pkt_startu + pkt_przejscia; //zmieniony pkt startu tak aby zaczac od adresu następnego od znalezionego
+
+            }
+            //Sprawdzenie czy w ogole istnieje jakikolwiek student z wprowadzonym nazwikiem
+            if(ile_stud == 0){
+                printf("\nNie znaleziono studenta z takim nazwiskiem\n");
+                return ;
+            }
+            //Obsluga po znalezieu studentow (jednego lub wielu)
+            else if(ile_stud >= 1){
+                printf("\nZnaleziono studenta/ów z takim nazwiskiem !!!\nKtórego chcesz zmodyfikować?\n");              
+                printf("Podaj nr indeksu z listy: ");
+                scanf(" %i", &index);
+                getchar();
+                wyszukany_Student = szukaj_studentaIndex(baza, rozmiar, index);
+            }
+
+        }
+        else if(wybor_Wyszkiwania == 0){
+            return ;
         }
         else{
             printf("Błąd! Wprowadź poprawny wybór jeszcze raz ");
@@ -307,6 +354,7 @@ void edytuj_studenta(Student *baza, int rozmiar){
 
     
     //Pola edycji -> po znalezionu konkretnego stidenta bedziemy pytac o to co chcemy edytowac
+    //Korzystamy z zmiennej, która była używana do wyboru w jaki sposob mamy znalezc studenta do edycji
     wybor_Wyszkiwania = 0;
     printf("Wybierz co chcesz edytować\n");
     printf("1. Średnia ocen \n");

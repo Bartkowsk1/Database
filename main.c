@@ -3,6 +3,9 @@
 #include <string.h>
 #include <windows.h>
 #include "student.h"
+/*
+Posprzatac w case - sa  niepotrzebne instrukcje + trzeba zmienic wypisanie instrukcji
+*/
 
 int main() {
     // Dodanie utf08
@@ -46,9 +49,9 @@ int main() {
 
             case 2: {
                 int wWypisanie;
-                printf("Wybierz sposób wypisania studentów: ");
-                printf("1. Cała baza studentów ");
-                printf("2. Studenci z poszczegolnego kierunku");
+                printf("Wybierz sposób wypisania studentów: \n");
+                printf("1. Cała baza studentów \n");
+                printf("2. Studenci z poszczegolnego kierunku\n");
                 do{
                     printf("Wybór(1 lub 2): ");
                     scanf(" %i", &wWypisanie);
